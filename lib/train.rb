@@ -1,6 +1,6 @@
 class Train
-  attr_reader :id, :name
-  attr_accessor :stops
+  attr_reader :name
+  attr_accessor :stops, :id
 
   def initialize(params)
     if params.has_key?(:id)
@@ -24,7 +24,7 @@ class Train
   def self.all
     returned_trains = []
     trains = DB.exec("SELECT * FROM trains")
-    trains.each() do |train| #train is returned as a hash
+    trains.each() do |train| #train is returned as a hash cause of each method
       name = train.fetch("name")
       id = train.fetch("id").to_i
       returned_trains.push(Train.new({:id => id, :name => name}))
@@ -34,6 +34,12 @@ class Train
 
   def ==(another_train)
     self.name == another_train.name
+  end
+
+  def self.find(id)
+    train = DB.exec("SELECT * FROM trains WHERE id='#{id}';")
+    name = train.first.fetch("name")
+    Train.new(name: name, id: id)
   end
 
   def update()

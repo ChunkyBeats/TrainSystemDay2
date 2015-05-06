@@ -32,6 +32,14 @@ describe(Train) do
     end
   end
 
+  describe('.find') do
+    it('returns the train object given the id') do
+      train = Train.new(name: "Thom")
+      train.save()
+      expect(Train.find(train.id)).to(eq(train))
+    end
+  end
+
 
   describe('#update') do
     it('changes the name of a train') do
