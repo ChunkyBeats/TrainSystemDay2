@@ -40,18 +40,6 @@ describe(City) do
     end
   end
 
-  # describe('#trains') do
-  #   it('returns all of the trains that pass through a city') do
-  #     city = City.new(name: "Timbuktoo")
-  #     city.save
-  #     train1 = Train.new(name: "Red")
-  #     train1.save
-  #     train2 = Train.new(name: "Blue")
-  #     train2.save
-  #     city.update()
-  #   end
-  # end
-
   describe('#get_trains and #update') do
     it('adds trains to a city and updates the city to include those trains') do
       city = City.new(name: "BigRed")
@@ -61,7 +49,6 @@ describe(City) do
       b_train = Train.new(name: 'B')
       b_train.save()
       city.update(:train_ids => [a_train.id, b_train.id])
-  # binding.pry()
       expect(city.get_trains).to(eq([a_train, b_train]))
     end
   end

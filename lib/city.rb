@@ -51,9 +51,7 @@ class City
     pg_trains = DB.exec("SELECT * FROM stops WHERE city_id = #{self.id}")
     pg_trains.each() do |train| # is a hash
       id = train.fetch("train_id").to_i
-      pg_result_row = DB.exec("SELECT name FROM trains WHERE id = #{id}")
-      row_hash = pg_result_row[0]
-      name = row_hash.fetch('name')
+      name = DB.exec("SELECT name FROM trains WHERE id = #{id}")[0].fetch('name')
       trains.push(Train.new(:id => id, :name => name))
     end
     trains
@@ -66,8 +64,9 @@ class City
     attributes.fetch(:train_ids, []).each do |train_id|
       DB.exec("INSERT INTO stops (train_id, city_id) VALUES (#{train_id}, #{self.id});")
     end
-
   end
+
+
 
 
 end

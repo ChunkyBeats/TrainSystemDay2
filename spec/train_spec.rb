@@ -48,14 +48,26 @@ describe(Train) do
   end
 
 
-  describe('#update') do
-    it('changes the name of a train') do
+  # describe('#update') do
+  #   it('changes the name of a train') do
+  #     train = Train.new(name: "BigRed")
+  #     train.save()
+  #     train.update("Thomas the Tank")
+  #     expect(train.name).to(eq("Thomas the Tank"))
+  #   end
+  # end
+
+  describe('#get_cities and #update') do
+    it('adds cities to a train and updates the train to include those cities') do
       train = Train.new(name: "BigRed")
       train.save()
-      train.update("Thomas the Tank")
-      expect(train.name).to(eq("Thomas the Tank"))
+      a_city = City.new(name: 'A')
+      a_city.save()
+      b_city = City.new(name: 'B')
+      b_city.save()
+      train.update(:city_ids => [a_city.id, b_city.id])
+      expect(train.get_cities).to(eq([a_city, b_city]))
     end
   end
-
 
 end
