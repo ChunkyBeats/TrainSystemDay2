@@ -40,10 +40,20 @@ describe(Train) do
     end
   end
 
+  describe('#delete') do
+    it('deletes a train') do
+      train = Train.new(name: 'Thom')
+      train.save()
+      train.delete()
+      expect(Train.all).to(eq([]))
+    end
+  end
+
 
   describe('#update') do
     it('changes the name of a train') do
       train = Train.new(name: "BigRed")
+      train.save()
       train.update("Thomas the Tank")
       expect(train.name).to(eq("Thomas the Tank"))
     end

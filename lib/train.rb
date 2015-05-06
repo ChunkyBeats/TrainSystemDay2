@@ -42,8 +42,13 @@ class Train
     Train.new(name: name, id: id)
   end
 
-  def update()
+  def delete
+    DB.exec("DELETE FROM trains WHERE id = '#{self.id}';")
+  end
 
+  def update(new_name)
+    @name = new_name
+    DB.exec("UPDATE trains SET name = '#{@name}' WHERE id = '#{self.id}';")
   end
 
   # def stops do
