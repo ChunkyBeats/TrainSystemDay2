@@ -46,10 +46,37 @@ class City
     DB.exec("DELETE FROM cities WHERE id = '#{self.id}';")
   end
 
-  def update(new_name)
-    @name = new_name
+  def get_trains
+    trains = []
+    pg_trains = DB.exec("SELECT * FROM stops WHERE city_id = #{self.id}")
+    pg_trains.each() do |train| # is a hash
+      id = train.fetch("train_id").to_i
+      pg_result_row = DB.exec("SELECT name FROM trains WHERE id = #{id}")
+      row_hash = pg_result_row[0]
+      name = row_hash.fetch('name')
+      trains.push(Train.new(:id => id, :name => name))
+    end
+    trains
+  end
+
+  def update(attributes)
+    @name = attributes.fetch(:name, @name)
     DB.exec("UPDATE cities SET name = '#{@name}' WHERE id = '#{self.id}';")
+
+    attributes.fetch(:train_ids, []).each do |train_id|
+      DB.exec("INSERT INTO stops (train_id, city_id) VALUES (#{train_id}, #{self.id});")
+    end
+
   end
 
 
 end
+
+
+
+
+
+
+
+
+#
