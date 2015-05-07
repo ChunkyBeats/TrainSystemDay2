@@ -43,6 +43,13 @@ post('/system_operator/add_train') do
   erb(:system_operator)
 end
 
+get('/system_operator/trains/:id') do
+  @train = Train.find(params.fetch('id').to_i)
+  # name = DB.exec("SELECT name FROM trains WHERE id = #{train_id}")
+  # @train = Train.new(name: name, id: train_id)
+  erb(:train)
+end
+
 
 get('rider') do
   erb(:rider)
