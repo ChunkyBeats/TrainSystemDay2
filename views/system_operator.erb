@@ -1,1 +1,26 @@
 <h1>Operate the system!</h1>
+
+<ul>
+  <li><a href='/system_operator/add_train'>Add Train</a></li>
+  <li><a href='/system_operator/add_city'>Add City</a></li>
+</ul>
+
+<p>These are the cities in the Train System:</p>
+
+<ul>
+  <% @all_cities.each do |city| %>
+    <li>
+      <a href='cities/<%= "#{city.id}" %>'><%= city.name %></a>
+    </li>
+  <% end %>
+</ul>
+
+<p>There are the trains in the Train System:</p>
+
+<ul>
+  <% @all_trains.each do |train| %>
+    <li>
+      <a href='trains/<%= "#{train.id}" %>'><%= train.name %></a>
+    </li>
+  <% end %>
+</ul>
