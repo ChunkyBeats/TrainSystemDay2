@@ -4,20 +4,22 @@ Capybara.app = Sinatra::Application
 set(:show_exceptions, false)
 
 describe('the app', :type => :feature) do
-  describe('/system_operator') do
-    it('Visits system operator page') do
-      visit('/system_operator')
-      expect(page).to(have_content('Operate the system!'))
-    end
-  end
-
-  describe('The system operator path') do
+  describe('The add train path') do
     it('adds a train to the system') do
       visit('/system_operator')
       click_link('Add Train')
       fill_in('train_name', :with => 'Frank the Tank')
-      click_button('Add Train')
-      expect(page).to have_content('Train Added')
+      click_button('Add')
+      expect(page).to have_content('Frank')
+    end
+  end
+
+  describe('the add city path') do
+    it('adds a city to the system') do
+      visit('/system_operator/add_city')
+      fill_in('city_name', :with => 'Boston')
+      click_button('Add')
+      expect(page).to have_content('Boston')
     end
   end
 
