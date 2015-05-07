@@ -4,6 +4,7 @@ also_reload('./lib/*.rb')
 require('./lib/city')
 require('./lib/train')
 require('pg')
+require('pry')
 
 DB = PG.connect({:dbname => "train_system"})
 
@@ -43,10 +44,10 @@ post('/system_operator/add_train') do
   erb(:system_operator)
 end
 
-get('/system_operator/trains/:id') do
+get('/trains/:id') do
   @train = Train.find(params.fetch('id').to_i)
-  # name = DB.exec("SELECT name FROM trains WHERE id = #{train_id}")
-  # @train = Train.new(name: name, id: train_id)
+  @train_stops = @train.get_cities
+binding.pry
   erb(:train)
 end
 

@@ -8,23 +8,19 @@
 <p>These are the cities in the Train System:</p>
 
 <ul>
-  <% #if @all_cities %>
-    <% @all_cities.each do |city| %>
-      <li>
-        <a href='cities/<%= "#{city.id}" %>'><%= city.name %></a>
-      </li>
-    <% end %>
-  <% #end %>
+  <% @all_cities.each do |city| %>
+    <li>
+      <a href='/cities/<%= "#{city.id}" %>'><%= city.name %></a>
+    </li>
+  <% end %>
 </ul>
 
 <p>There are the trains in the Train System:</p>
 
 <ul>
-  <% #if @all_trains %>
-    <% @all_trains.each do |train| %>
-      <li>
-        <a href='trains/<%= "#{train.id}" %>'><%= train.name %></a>
-      </li>
-    <% end %>
-  <% #end %>
+  <% @all_trains.each do |train| %>
+    <li>
+      <a href='/trains/<%= "#{train.id}" %>'><%= train.name %></a>
+    </li>
+  <% end %>
 </ul>

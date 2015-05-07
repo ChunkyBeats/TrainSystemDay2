@@ -36,6 +36,7 @@ class Train
     self.name == another_train.name
   end
 
+  #TODO: Add error catching/ return nil for an empty input
   def self.find(id)
     train = DB.exec("SELECT * FROM trains WHERE id='#{id}';")
     name = train.first.fetch("name")

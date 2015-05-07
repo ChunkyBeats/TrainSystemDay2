@@ -23,4 +23,12 @@ describe('the app', :type => :feature) do
     end
   end
 
+  describe('the stops path') do
+    it('will view the stops for a train') do
+      visit('/system_operator')
+      click_link('Add Train')
+      fill_in('train_name', :with => '')
+      #FINISH THIS AFTER LUNCH TO SEE WHAT @TRAIN_STOPS IS WITH PRY IN APP.RB
+
+
 end
