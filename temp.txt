@@ -1,0 +1,7 @@
+<ul>
+  <%= @train_stops.each do |city| %>
+    <li>
+      <a href='city/<%= "#{city.id}" %>'><%= city.name %></a>
+    </li>
+  <% end %>
+</ul>

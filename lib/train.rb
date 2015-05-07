@@ -53,16 +53,30 @@ class Train
     DB.exec("UPDATE trains SET name = '#{@name}' WHERE id = '#{self.id}';")
   end
 
+  # def get_cities
+  #   cities = []
+  #   pg_cities = DB.exec("SELECT * FROM stops WHERE train_id = #{self.id}")
+  #   pg_cities.each() do |city| # is a hash
+  #     id = city.fetch("city_id").to_i
+  #     name = DB.exec("SELECT name FROM cities WHERE id = #{id}")[0].fetch('name')
+  #     cities.push(City.new(:id => id, :name => name))
+  #   end
+  #   cities
+  # end
+
+
   def get_cities
-    cities = []
-    pg_cities = DB.exec("SELECT * FROM stops WHERE train_id = #{self.id}")
-    pg_cities.each() do |city| # is a hash
-      id = city.fetch("city_id").to_i
-      name = DB.exec("SELECT name FROM cities WHERE id = #{id}")[0].fetch('name')
-      cities.push(City.new(:id => id, :name => name))
+    train_cities = []
+    results = DB.exec("SELECT city_id FROM stops WHERE train_id = #{self.id()};")
+    results.each() do |result|
+      city_id = result.fetch("city_id").to_i()
+      city = DB.exec("SELECT * FROM cities WHERE id = #{city_id};")
+      name = city.first().fetch("name")
+      train_cities.push(City.new({:name => name, :id => city_id}))
     end
-    cities
+    train_cities
   end
+
 
   def update(attributes)
     @name = attributes.fetch(:name, @name)
@@ -72,10 +86,5 @@ class Train
       DB.exec("INSERT INTO stops (city_id, train_id) VALUES (#{city_id}, #{self.id});")
     end
   end
-
-  # def stops do
-  #   stop_array = []
-  # end
-
 
 end

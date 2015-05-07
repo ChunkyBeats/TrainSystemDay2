@@ -47,10 +47,29 @@ end
 get('/trains/:id') do
   @train = Train.find(params.fetch('id').to_i)
   @train_stops = @train.get_cities
-binding.pry
+  @all_cities = City.all
   erb(:train)
 end
 
+post('/trains/:id') do
+  @train = Train.find(params.fetch('id').to_i)
+  @all_cities = City.all
+  city_id = params.fetch('city').to_i
+  # city = City.find(city_id)
+  @train.update(city_ids: [city_id])
+  erb(:train)
+end
+
+# post('/trains/:id') do
+#   @train = Train.find(params.fetch('id').to_i)
+#   train_ids = []
+#   @train.get_cities.each do |city|
+#     train_ids.push(city.id)
+#   end
+#   @train.update(params.fetch(train_ids))
+#   @train_stops = @train.get_cities
+#   erb(:train)
+# end
 
 get('rider') do
   erb(:rider)

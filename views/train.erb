@@ -1,1 +1,23 @@
 <h2>Information for Train: <%= @train.name %></h2>
+
+<h3>The train stops in these cities:</h3>
+
+<ul>
+  <% @train.get_cities.each do |city| %>
+    <li>
+
+      <a href='/cities/<%= "#{city.id}" %>'>hi <%= "#{city.name}" %></a>
+    </li>
+  <% end %>
+</ul>
+
+<h3>assign a city to a train:</h3>
+
+<form action='/trains/<%= @train.id.to_s %>' method='post'>
+  <select name='train_city'>
+    <% @all_cities.each do |city| %>
+      <option name="city" id="city" value='<% city.id %>'><%= city.name %></option>
+    <% end %>
+  </select>
+  <button type='submit' class='btn-danger'>Add</button>
+</form>

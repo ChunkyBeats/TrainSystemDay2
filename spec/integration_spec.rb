@@ -27,8 +27,16 @@ describe('the app', :type => :feature) do
     it('will view the stops for a train') do
       visit('/system_operator')
       click_link('Add Train')
-      fill_in('train_name', :with => '')
+      fill_in('train_name', :with => 'Bubba')
+      click_button('Add')
+      click_link('Bubba')
+      click_link('Add')
+      select('Option', from: 'select')
+      click_button('Add')
+      expect(page).to have_content('')
       #FINISH THIS AFTER LUNCH TO SEE WHAT @TRAIN_STOPS IS WITH PRY IN APP.RB
+    end
+  end
 
 
 end
